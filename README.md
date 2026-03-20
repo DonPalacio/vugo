@@ -71,7 +71,7 @@ El proyecto sigue un patrón de **Arquitectura de Referencia para Aplicaciones M
 
 ## 3. Diagramas UML
 
-![Diagrama de casos de uso](./assets/diagrama-casos-uso.png)
+![Diagrama de casos de uso](./assets/diagrama-casos-de-uso.png)
 ![Diagrama de clases](./assets/diagrama-de-clases.png)
 ![Diagrama de secuencias](./assets/diagrama-de-secuencias.png)
 
