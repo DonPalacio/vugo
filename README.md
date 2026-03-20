@@ -74,3 +74,18 @@ El proyecto sigue un patrón de **Arquitectura de Referencia para Aplicaciones M
 ![Diagrama de casos de uso](./assets/diagrama-casos-uso.png)
 ![Diagrama de clases](./assets/diagrama-de-clases.png)
 ![Diagrama de secuencias](./assets/diagrama-de-secuencias.png)
+
+## 5. Estrategia de ramas (Branching)
+
+### Definición de las tres ramas
+* **main:** Es la rama principal. Solo se  pasa código estable y listo para producción. Acá no se realizan commits.
+* **develop:** Esta la rama de integración. Aquí se consolidan todas las funcionalidades terminadas antes de pasar a main. Es el reflejo del estado actual del desarrollo.
+* **feature/*:** Ramas temporales creadas para tareas específicas (ej: feature/login, feature/agendamiento). Se originan de develop y vuelven a ella cuando se finalice la tarea.
+
+### Flujo de trabajo
+Aunque esté como desarrollador único, sigo el estándar hoy en día:
+
+* **Inicio de tarea:** Se crea una rama feature desde develop.
+* **Desarrollo:** Se realizan los commits necesarios en la rama de la funcionalidad.
+* **Integración:** Una vez finalizada y probada la tarea, se realiza un Merge hacia develop.
+* **Lanzamiento (Release):** Cuando develop alcanza un estado estable con varias funcionalidades, se fusiona con main para marcar una versión oficial del sistema.
