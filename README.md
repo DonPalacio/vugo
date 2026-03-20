@@ -68,3 +68,9 @@ El proyecto sigue un patrón de **Arquitectura de Referencia para Aplicaciones M
 * **Capa de Servicios:** Contiene la lógica de negocio compleja (ej. algoritmo de cálculo de huecos libres para citas).
 * **Capa de Serialización:** Validación y transformación de datos basado en ModelSerializers.
 * **Capa de Vistas (API):** Endpoints expuestos mediante Class-Based Views (CBVs).
+
+## 3. Diagramas UML
+
+![Diagrama de casos de uso](./assets/diagrama-casos-uso.png)
+![Diagrama de clases](./assets/diagrama-de-clases.png)
+![Diagrama de secuencias](./assets/diagrama-de-secuencias.png)
