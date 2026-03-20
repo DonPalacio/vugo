@@ -89,3 +89,47 @@ Aunque esté como desarrollador único, sigo el estándar hoy en día:
 * **Desarrollo:** Se realizan los commits necesarios en la rama de la funcionalidad.
 * **Integración:** Una vez finalizada y probada la tarea, se realiza un Merge hacia develop.
 * **Lanzamiento (Release):** Cuando develop alcanza un estado estable con varias funcionalidades, se fusiona con main para marcar una versión oficial del sistema.
+
+## 6. Documento de flujo de desarrollo
+
+### ¿Cómo se desarrolla una nueva funcionalidad?
+* **1. Capa Domain (models.py)**
+Si la funcionalidad requiere nuevos datos entonces se define el modelo en Django dentro de la app correspondiente y posteriormente se ejecuta 'python manage.py makemigrations' y 'python manage.py migrate'.
+
+* **2. Capa Application (services.py)**
+NO se debe de poner lógica compleja dentro de la vista, para eso se edita el archivo de services.py, situado siempre bajo la misma arquitectura application/services.py y se escriben las funciones que únicamente realicen cálculos o validaciones (el. obtener_huecos_disponibles_de_psicologos)
+
+* **3. Capa Infrastructure (serializer.py)**
+El serializer.py es el que actúa como transformador de datos. En este archivo es donde se valida absolutamente todo, si algún dato es inválido, el serializer debe de lanzar el error para que el frontend lo reciba bien estructurado.
+
+* **4. Capa Presentation (views.py, urls.py)**
+Se crea la nueva view CBVs (Class-Based Views) por temas de reutilización de código (DRY) y soluciones rápidas preconfiguradas en Django para el CRUD (Create, Read, Update, Delete). Luego, se registra la ruta en urls.py. Probar SIEMPRE el endpoint con Postman antes de tocar React.
+
+* **5. Frontend Services**
+Crear la función en features/****/services/xxxApi.js y se usa el apiClient para heredar la gestión de tokens y errores.
+
+* **6. Componente y vista final del usuario**
+Crear el componente en React, después se implementa el manejo de estados y se le da uso a la lógica de "borde rojo". "Borde rojo" no es un término técnico directamente de Django, es una referencia visual común para los mensajes de error resaltados cuando falla la validación en el serializer, estos errores de validación se gestionan a través del atributo .error que devuelve un diccionario con campos fallidos, y así permite devolver errores en JSON para cada campo o errores generales.
+
+### ¿Cómo se hace commit?
+Los commit siempre se deben de redactar atómicamente la descripción detallada del cambio para evitar el famoso "ajustes variaditos". Por ende, se va a usar el estándar Conventional Commits:
+
+Su estructura es: **tipo: descripción corta** (ej. fix: traslape de horarios en citas de 30 minutos.)
+
+El flujo en la terminal es de dos pasos:
+
+**git add .** (El "." es para subir todos los archivos modificados sin excepción. Si se quiere subir solamente el cambio de un archivo en específico, se cambia el "." por el nombre exacto del archivo)
+
+**git commit -m "feat: implementar validación de horarios en el backend"** 
+
+### ¿Cómo se hace merge?
+Como cada funcionalidad viviría en su "propio mundo" o su propia rama temporal cuando se crea, primero se trae lo que otras personas hayan hecho en main a la rama en la que se está trabajando para resolver conflictos localmente:
+
+**git checkout feature/gestion-permisos** (Para asegurarse de que sí se esté ubicado en esa rama)
+**git pull origin main**
+
+Posteriormente cuando se hayan resuelto los conflictos, se integra a la rama principal
+
+**git checkout main** (Para ir directamente principal donde voy a integrar los cambios)
+**git merge feature/gestion-permisos**
+**git push origin main**
